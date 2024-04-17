@@ -194,7 +194,7 @@ class TimeLogResource(Resource):
             import ipdb
             ipdb.set_trace()
             return make_response(jsonify(time_log.to_dict()), 201)
-
+        
         except Exception as e:
             return jsonify({'error': str(e)}), 500
 
