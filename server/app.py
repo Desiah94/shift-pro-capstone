@@ -162,7 +162,7 @@ class TimeLogResource(Resource):
         "total_hours": float(self.total_hours) if self.total_hours else None,
         "status": self.status,
         "user_id": self.user_id,
-        "departments": [{"id": dept.id, "name": dept.name} for dept in self.departments]
+        "departments": [{"id": dept.id, "name": dept.users} for dept in self.departments]
     }
         try:
             
@@ -173,8 +173,7 @@ class TimeLogResource(Resource):
             if not user:
                 return jsonify(message="User not found"), 404
             
-            import ipdb
-            ipdb.set_trace()
+            
 
             user_id = user_id or user.id
             clock_in = datetime.strptime(data['clock_in'], '%H:%M')
