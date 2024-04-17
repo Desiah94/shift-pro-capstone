@@ -37,6 +37,7 @@ class User(db.Model, SerializerMixin):
     serialize_rules = (
         '-password_hash',        # Exclude password hash
         '-time_logs.user',
+        '-role.users',
         '-department.user'
     )
     id = db.Column(db.Integer, primary_key=True)
@@ -55,7 +56,9 @@ class TimeLog(db.Model, SerializerMixin):
         '-user.password_hash',   # Exclude user's password hash  
         '-departments.users',    # Exclude other users in the departments to avoid recursion
         '-departments.time_logs',
-        '-user.time_logs' # Exclude other time logs in the departments to avoid recursion
+        '-user.time_logs', # Exclude other time logs in the departments to avoid recursion
+        '-user.role',
+        '-user.department',
     )
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, nullable=False)

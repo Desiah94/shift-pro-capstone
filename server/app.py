@@ -135,6 +135,7 @@ class UserResource(Resource):
 class UserListResource(Resource):
     @jwt_required()
     def get(self):
+    
         users = User.query.all()
         # No Marshmallow dumping
         user_list = [{'id': user.id, 'username': user.username, 'name': user.name, 'email': user.email, 'role_id': user.role_id, 'department_id': user.department_id} for user in users]
@@ -147,14 +148,13 @@ class TimeLogResource(Resource):
         data = request.get_json()
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
+        print(user)
 
         if not user:
             return jsonify({'message': "User not found"}), 404
 
         try:
-            import ipdb
-            ipdb.settrace()
-            user_id = user_id or user.id
+            user_id = user.id
             clock_in = datetime.strptime(data['clock_in'], '%H:%M').time()
             clock_out = datetime.strptime(data['clock_out'], '%H:%M').time()
 
@@ -172,7 +172,8 @@ class TimeLogResource(Resource):
             )
             db.session.add(time_log)
             db.session.commit()
-            return jsonify(time_log.to_dict()), 201
+            
+            return make_response(time_log.to_dict(), 201)
         except KeyError as e:
             return jsonify({'error': f'Missing key {e}'}), 400
         except ValueError as e:
