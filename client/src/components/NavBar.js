@@ -9,7 +9,7 @@ function NavBar() {
 
   return (
     <nav>
-      <h2 class="shift-pro-header">Shift Pro</h2>
+      <h2 className="shift-pro-header">Shift Pro</h2>
       <ul>
         <li>
           <Link to="/">Home</Link>
