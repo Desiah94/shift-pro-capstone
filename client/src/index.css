@@ -427,3 +427,67 @@ nav ul li a:hover,
 .plus-button:hover {
   background-color: #0056b3; /* Darker blue when the button is hovered */
 }
+/* General styles for any table */
+.table-style {
+  width: 100%; /* Full width */
+  border-collapse: collapse; /* Collapses the border lines between cells */
+  background-color: #f4f4f4; /* Light grey background */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-top: 100px; /* Space above the table */
+  margin-bottom: 50px; /* Space below the table */
+  margin-left: 250px;
+}
+
+.view-timelogs-header {
+  margin-left: 500px;
+  width: 500px;
+    color: #007BFF; /* A deep blue to match other headers or important text */
+    font-size: 24px; /* Large enough to stand out but not overpower */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, readable font */
+    text-align: center; /* Centers the header text within its container */
+    margin-top: 100px; /* Space above the header */
+    margin-bottom: 10px; /* Space below the header, adjust based on your layout */
+    padding: 10px 0; /* Padding above and below the text */
+    background-color: #f4f4f4; /* Light grey background to make the header pop out */
+    border-radius: 5px; /* Slightly rounded corners for a soft, modern look */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* Subtle shadow for depth */
+}
+.table-style th, .table-style td {
+  border: 1px solid #ccc; /* Light grey border */
+  padding: 8px; /* Padding inside cells */
+  text-align: left; /* Aligns text to the left */
+  color: #333; /* Dark grey text for readability */
+}
+
+.table-style th {
+  background-color: #007BFF; /* Blue background for headers */
+  color: white; /* White text in headers */
+}
+
+.table-style td {
+  background-color: white; /* White background for cells */
+}
+
+.table-style tr:nth-child(odd) {
+  background-color: #f9f9f9; /* Slightly different background for odd rows for better readability */
+}
+
+.table-style tr:hover {
+  background-color: #ddd; /* Hover effect for rows */
+}
+
+/* Styles for buttons within the table */
+.table-style button {
+  padding: 5px 10px; /* Padding around button text */
+  margin-right: 5px; /* Space between buttons */
+  background-color: #007BFF; /* Blue background */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Indicates the element is clickable */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.table-style button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

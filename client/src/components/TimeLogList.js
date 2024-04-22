@@ -291,43 +291,43 @@ const calculateHoursWorked = (clock_in, clock_out) => {
         </>
       ) : (
         <div className="hours-table">
-          <h3>View Timelogs</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Clock In</th>
-                <th>Clock Out</th>
-                <th>Hours Worked</th>
-                <th>Total Hours</th>
-                <th>Status</th>
-                <th>Action</th>
+        <h3 class="view-timelogs-header">View Timelogs</h3>
+        <table className="table-style">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Clock In</th>
+              <th>Clock Out</th>
+              <th>Hours Worked</th>
+              <th>Total Hours</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allTimeLogs.map((log, index) => (
+              <tr key={index}>
+                <td>{log.date}</td>
+                <td>{formatTime(log.clockIn)}</td>
+                <td>{formatTime(log.clockOut)}</td>
+                <td>{log.hoursWorked}</td>
+                <td>{log.totalHours}</td>
+                <td>{log.status}</td>
+                <td>
+                  {editLogId === log.id ? (
+                    <button onClick={() => updateDatabase(log.id)}>Update</button>
+                  ) : (
+                    <>
+                      <button onClick={() => handlePatch(log.id)}>Edit</button>
+                      <button onClick={() => handleDeleteRow(log.id)}>Delete</button>
+                    </>
+                  )}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {allTimeLogs.map((log, index) => (
-                <tr key={index}>
-                  <td>{log.date}</td>
-                  <td>{formatTime(log.clockIn)}</td>
-                  <td>{formatTime(log.clockOut)}</td>
-                  <td>{log.hoursWorked}</td>
-                  <td>{log.totalHours}</td>
-                  <td>{log.status}</td>
-                  <td>
-                    {editLogId === log.id ? (
-                      <button onClick={() => updateDatabase(log.id)}>Update</button>
-                    ) : (
-                      <>
-                        <button onClick={() => handlePatch(log.id)}>Edit</button>
-                        <button onClick={() => handleDeleteRow(log.id)}>Delete</button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
       )}
     </div>
   );
