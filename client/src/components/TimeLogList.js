@@ -230,7 +230,7 @@ const calculateHoursWorked = (clock_in, clock_out) => {
       </div>
       {isTableVisible ? (
         <>
-          <h2>Create Entry</h2>
+          <h2 className="create-entry-header">Create Entry</h2>  {/* Header with a class for specific styling */}
           <div className="calendar-dropdown">
             <label htmlFor="selectedDate">Select Date:</label>
             <input
@@ -242,8 +242,8 @@ const calculateHoursWorked = (clock_in, clock_out) => {
             />
             <button onClick={handleSubmit}>Submit</button>
           </div>
+          {noTimeLogMessage && <p>{noTimeLogMessage}</p>}
           <div className="admin-dashboard-content">
-            {noTimeLogMessage && <p>{noTimeLogMessage}</p>}
             {data.length > 0 && (
               <table className="time-log-table">
                 <thead>
@@ -260,39 +260,9 @@ const calculateHoursWorked = (clock_in, clock_out) => {
                 <tbody>
                   {data.map((entry, rowIndex) => (
                     <tr key={rowIndex}>
-                      <td>
-                        {editingRowIndex === rowIndex ? (
-                          <input
-                            type="date"
-                            value={entry.date}
-                            onChange={e => handleCellEdit(e.target.value, rowIndex, 'date', false)}
-                          />
-                        ) : (
-                          entry.date
-                        )}
-                      </td>
-                      <td>
-                        {editingRowIndex === rowIndex ? (
-                          <input
-                            type="time"
-                            value={entry.clockIn}
-                            onChange={e => handleCellEdit(e.target.value, rowIndex, 'clockIn', false)}
-                          />
-                        ) : (
-                          formatTime(entry.clockIn)
-                        )}
-                      </td>
-                      <td>
-                        {editingRowIndex === rowIndex ? (
-                          <input
-                            type="time"
-                            value={entry.clockOut}
-                            onChange={e => handleCellEdit(e.target.value, rowIndex, 'clockOut', false)}
-                          />
-                        ) : (
-                          formatTime(entry.clockOut)
-                        )}
-                      </td>
+                      <td>{entry.date}</td>
+                      <td>{formatTime(entry.clockIn)}</td>
+                      <td>{formatTime(entry.clockOut)}</td>
                       <td>{entry.hoursWorked}</td>
                       <td>{entry.totalHours}</td>
                       <td>{entry.status}</td>
@@ -302,7 +272,6 @@ const calculateHoursWorked = (clock_in, clock_out) => {
                         ) : (
                           <>
                             <button onClick={() => handleEditRow(rowIndex)}>Edit</button>
-                            {/* <button onClick={() => handleDeleteRow(rowIndex)}>Delete</button> */}
                           </>
                         )}
                       </td>
@@ -311,7 +280,7 @@ const calculateHoursWorked = (clock_in, clock_out) => {
                 </tbody>
               </table>
             )}
-            <div>
+            <div style={{ textAlign: 'left' }}> {/* Placing the plus button to the left */}
               <button onClick={handleAddNewEntry}>
                 <span role="img" aria-label="plus-sign">
                   +
@@ -338,41 +307,11 @@ const calculateHoursWorked = (clock_in, clock_out) => {
             <tbody>
               {allTimeLogs.map((log, index) => (
                 <tr key={index}>
-                  <td>
-                    {editLogId === log.id ? (
-                      <input
-                        type="date"
-                        value={log.date}
-                        onChange={e => handleEditPatch(e.target.value, index, 'date', false)}
-                      />
-                    ) : (
-                      log.date
-                    )}
-                  </td>
-                  <td>
-                    {editLogId === log.id ? (
-                      <input
-                        type="time"
-                        value={log.clockIn}
-                        onChange={e => handleEditPatch(e.target.value, index, 'clockIn', false)}
-                      />
-                    ) : (
-                      formatTime(log.clock_in)
-                    )}
-                  </td>
-                  <td>
-                    {editLogId === log.id ? (
-                      <input
-                        type="time"
-                        value={log.clockOut}
-                        onChange={e => handleEditPatch(e.target.value, index, 'clockOut', false)}
-                      />
-                    ) : (
-                      formatTime(log.clock_out)
-                    )}
-                  </td>
-                  <td>{log.hours_worked}</td>
-                  <td>{log.total_hours}</td>
+                  <td>{log.date}</td>
+                  <td>{formatTime(log.clockIn)}</td>
+                  <td>{formatTime(log.clockOut)}</td>
+                  <td>{log.hoursWorked}</td>
+                  <td>{log.totalHours}</td>
                   <td>{log.status}</td>
                   <td>
                     {editLogId === log.id ? (

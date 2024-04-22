@@ -7,6 +7,11 @@
 
 /* TimeLogList.css */
 
+.shift-pro-header {
+  color: white;
+  height: 30px;
+  width: 100px;
+}
 
 
 /* home css */
@@ -15,6 +20,7 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
+  margin-top: 200px;
 }
 
 /* Styling for the text content inside the home component */
@@ -73,17 +79,28 @@
 /* NavBar.css - Unique styles for the NavBar component */
 nav {
   background-color: #007BFF; /* Dark blue background */
-  padding: 10px 20px; /* Padding around the nav */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+  padding: 5px 20px; /* Padding around the nav for better spacing */
+  width: 100%; /* Ensures the nav takes up the full width of the viewport */
+  position: fixed; /* Keeps the nav at the top of the page when scrolling */
+  top: 0; /* Aligns the nav to the top of the viewport */
+  left: 0; /* Aligns the nav to the left of the viewport */
+  z-index: 1000; /* Ensures the nav stays on top of other content */
+  box-sizing: border-box; /* Includes padding in the width calculation, ensuring it truly spans 100% */
+  display: flex; /* Enables flexbox properties */
+  justify-content: space-between; /* Distributes space between and around content items */
+  align-items: center; /* Aligns items vertically within the container */
 }
 
 nav ul {
+  margin-right:-500px;
   list-style: none; /* Remove list bullets */
-  margin: 0;
   padding: 0;
   display: flex; /* Display items in a row */
-  justify-content: center; /* Center items horizontally */
+  justify-content: center; /* Center items horizontally within this container */
   align-items: center; /* Align items vertically */
+  flex-grow: 1; /* Allows the ul to grow and take up space as needed */
+  /* Centers ul in nav when combined with margin-right auto */
+  /* margin-right: auto; Maintains center alignment and equal margins on both sides */
 }
 
 nav ul li {
@@ -92,6 +109,7 @@ nav ul li {
 
 nav ul li a,
 .logout-button { /* Styling for links and the Logout component */
+ 
   color: white; /* Text color */
   text-decoration: none; /* No underline */
   font-size: 16px;
@@ -104,8 +122,6 @@ nav ul li a:hover,
 .logout-button:hover { /* Hover effects */
   background-color: #5994cf; /* Darker shade of blue on hover */
 }
-
-
 /* Register.css */
 .register-container {
   display: flex;
@@ -235,10 +251,12 @@ nav ul li a:hover,
 }
 
 .sidebar {
+  margin-left: -10px;
   width: 200px; /* Adjust width as needed */
   background-color: #007BFF; /* Light blue background for sidebar */
-  padding: 20px;
+  padding: 50px 10px;
   color: white; /* Text color for sidebar */
+  margin-top: 60px; /* Adjust this value based on desired vertical position */
 }
 
 .sidebar h2 {
@@ -262,19 +280,94 @@ nav ul li a:hover,
   background-color: #003b7a; /* Even darker on hover */
 }
 
+/* General styles for admin dashboard content */
 .admin-dashboard-content {
-  flex-grow: 1; /* Take up the remaining space */
-  padding: 20px;
-}
-
-/* Existing styles */
-.time-log-item {
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 1000px;
+  margin: 20px auto 100px; /* Increased bottom margin */
   padding: 10px;
-  margin-bottom: 10px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+   
+
+
+.parent-container {
+  position: relative; /* Essential for absolute positioning context */
+}
+/* Styles for the date picker */
+.calendar-dropdown {
+  position: absolute;
+    top: -50px; /* Moves it down from the top edge of the parent container */
+    right: 710px; /* Aligns it to the right edge of the parent container */
+  max-height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin: 210px 0 50px 20px; /* Top, Right, Bottom, Left margins to move it down and to the right */
+  padding: 10px; /* Just enough padding to provide space around the content */
+  background-color: #f4f4f4; /* Light grey background, change as needed */
+  border-radius: 8px; /* Styled rounded corners */
+  
 }
 
+.calendar-dropdown label {
+  font-size: 16px; /* Clear and readable font size */
+  color: #007BFF; /* Dark grey color for the text */
+  margin-bottom: 5px; /* Minimal space below the label to keep things tight */
+  font-weight: bold; /* Bold text for emphasis */
+}
+
+.calendar-dropdown input[type="date"] {
+  width: 100%; /* Stretches to fit its container */
+  padding: 8px; /* Enough padding to make the input easy to interact with */
+  border: 1px solid #007BFF; /* Subtle border styling */
+  border-radius: 4px; /* Smoothed corners for the input field */
+  box-sizing: border-box; /* Ensures the padding and border are included in the element's size */
+}
+
+/* Styles for the time log table */
+.time-log-table {
+  width: 100%; /* Full width */
+  margin-left: 0px; /* Adjusted to ensure it's within the visible area */
+  margin-top: 250px; /* Add space above the table */
+  margin-bottom: 30px; /* Add space below the table if needed */
+  border-collapse: collapse;
+  table-layout: fixed;
+  background-color: #007BFF;
+  color: white;
+}
+
+.time-log-table td {
+  background-color: white; /* Sets the background color of the cells to white */
+  color: black; /* Sets the text color to black for contrast */
+  padding: 8px; /* Ensures consistent padding with the headers */
+  border: 1px solid #ddd; /* Consistent border with the headers */
+  text-align: left; /* Aligns the text to the left */
+}
+.time-log-table th, .time-log-table td {
+  border: 1px solid #ddd; /* Light borders for readability */
+  text-align: left; /* Text alignment */
+  padding: 8px; /* Consistent padding in all cells */
+  overflow: hidden; /* Prevents text from overflowing the cell */
+  text-overflow: ellipsis; /* Adds ellipsis (...) when text exceeds the cell width */
+  white-space: nowrap; /* Prevents text from wrapping to new lines */
+}
+
+/* Adjusting column widths if necessary */
+.time-log-table th:nth-child(1), .time-log-table td:nth-child(1) {
+  width: 15%; /* Width for the first column */
+}
+.time-log-table th:nth-child(2), .time-log-table td:nth-child(2),
+.time-log-table th:nth-child(3), .time-log-table td:nth-child(3) {
+  width: 10%; /* Width for the second and third columns */
+}
+
+/* Styles for delete button and log item */
 .delete-button {
   background-color: #ff6347;
   color: #fff;
@@ -284,6 +377,30 @@ nav ul li a:hover,
   cursor: pointer;
 }
 
+.time-log-item {
+  border: 1px solid #ccc; 
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
 .time-log-form-container {
   margin-top: 20px;
+  max-height: 90px;
+}
+.create-entry-header {
+  position: absolute;
+  top: 90px; /* Positions the header down from the top of the parent */
+  left: 50%; /* Centers the header horizontally */
+  transform: translateX(-50%); /* Adjusts the centering to be perfect */
+  max-height: 70px;
+  font-size: 24px;  /* Large font size for clear visibility */
+  color: #007BFF;  /* Dark color for better readability */
+  text-align: center;  /* Center-aligns the text */
+  padding: 10px 20px;  /* Padding on top and bottom, and slightly more on the sides */
+  margin: 20px auto;  /* Vertical margin for spacing, auto horizontally centers the block */
+  background-color: #ffffff;  /* Light grey background to distinguish the header */
+  border-radius: 6px;  /* Rounded corners for a modern appearance */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
+  width: auto;  /* Allows the width to fit the content with some padding */
+  max-width: 90%;  /* Limits the maximum width to maintain layout consistency */
 }
