@@ -280,13 +280,13 @@ const calculateHoursWorked = (clock_in, clock_out) => {
                 </tbody>
               </table>
             )}
-            <div style={{ textAlign: 'left' }}> {/* Placing the plus button to the left */}
-              <button onClick={handleAddNewEntry}>
-                <span role="img" aria-label="plus-sign">
-                  +
-                </span>
-              </button>
-            </div>
+            <div className="button-container"> {/* You can add a class for any required styling */}
+            <button className="plus-button" onClick={handleAddNewEntry}>
+              <span role="img" aria-label="plus-sign">
+                +
+              </span>
+            </button>
+          </div>
           </div>
         </>
       ) : (

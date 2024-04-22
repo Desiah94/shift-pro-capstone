@@ -57,12 +57,12 @@ const Login = () => {
           {error && <p style={{ color: 'red' }}>{error}</p>}
         </form>
       </div>
-      <div className="login-image-container">
+      {/* <div className="login-image-container">
         <img
           src="https://res.cloudinary.com/doyp4tk82/image/upload/v1711946154/Blue_Green_Abstract_Testimonial_Review_Facebook_Post_1_zxmjxl.png"
           alt="Login Visual"
         />
-      </div>
+      </div> */}
     </div>
   );
 };
