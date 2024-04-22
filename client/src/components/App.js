@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './NavBar';
 import Home from './Home';
 import Login from './Login';
-import Register from './Register'; // Make sure to import the Register component
+import Register from './Register';
 import TimeLogList from './TimeLogList';
 import TimeLogForm from './TimeLogForm';
 import Logout from './Logout';
@@ -16,7 +16,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} /> {/* Updated to use the Register component */}
+        <Route path="/register" component={Register} />
         <Route path="/timelogs" component={TimeLogList} />
         <Route path="/timelog/new" component={TimeLogForm} />
         <Route path="/timelog/edit/:id" component={TimeLogForm} />
