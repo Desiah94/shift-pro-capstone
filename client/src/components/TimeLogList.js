@@ -28,14 +28,14 @@ function TimeLogList() {
     total_hours: '',
     status: 'Pending'
   });
-  const [noTimeLogMessage, setNoTimeLogMessage] = useState('');
-  const [hoursForSelectedDate, setHoursForSelectedDate] = useState(0);
+  // const [noTimeLogMessage, setNoTimeLogMessage] = useState('');
+  // const [hoursForSelectedDate, setHoursForSelectedDate] = useState(0);
   const [submitClicked, setSubmitClicked] = useState(false);
 
   useEffect(() => {
-    if (submitClicked) {
-      fetchData();
-    }
+    // if (submitClicked) {
+    //   fetchData();
+    // }
     fetchAllTimeLogs().then(data => {
       if (data) {
         const timeLogs = data.map(log => ({
@@ -46,60 +46,89 @@ function TimeLogList() {
         setAllTimeLogs(timeLogs);
       }
     });
-  }, [selectedDate, submitClicked,isTableVisible]);
+  }, [selectedDate, submitClicked,isTableVisible, fetchAllTimeLogs ]);
 
  
-  const fetchData = () => {
-    const timeLogsForSelectedDate = data.filter(entry => entry.date === selectedDate.toISOString().split('T')[0]);
-    setNoTimeLogMessage(timeLogsForSelectedDate.length === 0 ? 'No time log present.' : '');
-    let totalHours = 0;
-    timeLogsForSelectedDate.forEach(log => {
-      totalHours += parseFloat(log.hoursWorked);
-    });
-    setHoursForSelectedDate(totalHours);
-  };
-
-
+  // const fetchData = () => {
+  //   const timeLogsForSelectedDate = data.filter(entry => entry.date === selectedDate.toISOString().split('T')[0]);
+  //   setNoTimeLogMessage(timeLogsForSelectedDate.length === 0 ? 'No time log present.' : '');
+  //   let totalHours = 0;
+  //   timeLogsForSelectedDate.forEach(log => {
+  //     totalHours += parseFloat(log.hoursWorked);
+  //   });
+  //   setHoursForSelectedDate(totalHours);
+  // };
+  
   const saveDataToBackend = (updatedData) => {
     // Logic to save data to backend
   };
+  console.log(editLogId)
+
 
   const updateDatabase = (logid) => {
-    const updatedTimeLog = allTimeLogs.find(log => logid === log.id)
+    const updatedTimeLog = allTimeLogs.find(log => logid === log.id);
+    console.log(updateTimeLog)
     updateTimeLog(logid, updatedTimeLog)
+      .then(() => {
+        fetchAllTimeLogs().then(data => {
+          setAllTimeLogs(data.map(log => ({
+            ...log,
+            clock_in: log.clock_in || '00:00',  // Default value if undefined
+            clock_out: log.clock_out || '00:00'
+          })));
+          // Reset editing state to close inputs and reflect the update on the UI
+          setEditingRowIndex(null);
+          seteditLogId(null);
+          console.log(editLogId)
+        })
+        .catch(error => {
+          console.error('Error fetching updated logs:', error);
+        });
+      })
+      .catch(error => {
+        console.error('Failed to update time log:', error);
+      });
   };
+  
 
   const handlePatch = (logid) => {
     seteditLogId(logid);
   }
   console.log(allTimeLogs)
+
+
   const handleEditPatch = async (newValue, rowIndex, field) => {
     console.log(`Handling edit patch for field ${field} with new value ${newValue}`);
-
-    // Ensure the backend field names are used
+  
     const backendField = field === 'clockIn' ? 'clock_in' : field === 'clockOut' ? 'clock_out' : field;
-
+  
     setAllTimeLogs(prevData => {
-        const updatedData = [...prevData];
-        updatedData[rowIndex][backendField] = newValue; // Apply changes with the correct backend field name
-
-        console.log(`Updated field ${field} for row ${rowIndex}:`, updatedData[rowIndex]);
-
-        // Recalculate hours worked if clock_in or clock_out changes
-        if (field === 'clockIn' || field === 'clockOut') {
-            updatedData[rowIndex].hours_worked = calculateHoursWorked(
-                updatedData[rowIndex].clock_in,
-                updatedData[rowIndex].clock_out
-            );
-            console.log(`New hours worked for row ${rowIndex}:`, updatedData[rowIndex].hours_worked);
-
-            // Recalculate total hours for the table
-            const totalHours = updatedData.reduce((total, log) => total + parseFloat(log.hours_worked || 0), 0);
-            updatedData.forEach(log => log.total_hours = totalHours.toFixed(2));
-            console.log(`Total hours for all logs after update:`, totalHours);
-        }
-
-        return updatedData;
+      const updatedData = [...prevData];
+      updatedData[rowIndex][backendField] = newValue; // Apply changes
+  
+      if (field === 'clockIn' || field === 'clockOut') {
+        updatedData[rowIndex].hours_worked = calculateHoursWorked(
+          updatedData[rowIndex].clock_in,
+          updatedData[rowIndex].clock_out
+        );
+      }
+  
+      // Call update on the backend with the whole time log entry
+      updateTimeLog(updatedData[rowIndex].id, updatedData[rowIndex])
+        .then(() => {
+          console.log('Update successful');
+          // Optionally re-fetch all logs to reflect the update
+          fetchAllTimeLogs().then(updatedLogs => {
+            setAllTimeLogs(updatedLogs.map(log => ({
+              ...log,
+              clock_in: log.clock_in || '00:00',  // Default value if undefined
+              clock_out: log.clock_out || '00:00'
+            })));
+          });
+        })
+        .catch(error => console.error('Failed to update time log:', error));
+  
+      return updatedData;
     });
   };
 
@@ -243,7 +272,7 @@ const calculateHoursWorked = (clock_in, clock_out) => {
             <button onClick={handleSubmit}>Submit</button>
           </div>
           <div className="admin-dashboard-content">
-            {noTimeLogMessage && <p>{noTimeLogMessage}</p>}
+            {/* {noTimeLogMessage && <p>{noTimeLogMessage}</p>} */}
             {data.length > 0 && (
               <table className="time-log-table">
                 <thead>

@@ -42,6 +42,7 @@
   text-decoration: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-left: -90px;
 }
 
 .home-content .button:hover {
@@ -58,21 +59,24 @@
 }
 
 .home-image-container img {
-  width: 100%; /* Responsive width */
+  width: 400px; /* Responsive width */
   height: auto; /* Maintain aspect ratio */
   border-radius: 10px; /* Optional: Rounds the corners */
   margin-left: -300px;
 }
-/* * Home.css */ */
+/* * Home.css */ 
 .home-container .home-content h4 {
+  margin-left: -90px;
     color: #3498db; /* Light blue color for h4 */
 }
 
 .home-container .home-content h3 {
+  margin-left: -90px;
     color: #007BFF; /* Orange color for h3 */
 }
 
 .home-container .home-content h1 {
+  margin-left: -90px;
     color: #000000; /* Green color for h1 */
 }
 
@@ -124,6 +128,7 @@ nav ul li a:hover,
 }
 /* Register.css */
 .register-container {
+  margin-right: -260px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -155,7 +160,7 @@ nav ul li a:hover,
 }
 
 .register-image-container img {
-  width: 70%; /* Responsive image width */
+  width: 300px; /* Responsive image width */
   height: auto; /* Maintain aspect ratio */
 }
 .register-form .error-message {
